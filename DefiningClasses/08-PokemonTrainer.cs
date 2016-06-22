@@ -43,13 +43,10 @@ class PokemonTrainer
             Pokemon tempPokemon = new Pokemon(pokemonName, pokemonElement, pokemonHealth);
 
             bool trainerExists = false;
-            foreach (var trainer in trainerList)
+            if (trainerList.Any(x=>x.name == trainerName))
             {
-                if (trainer.name == trainerName)
-                {
-                    trainer.pokemons.Add(tempPokemon);
-                    trainerExists = true;
-                }
+                trainerList.FirstOrDefault(x=>x.name == trainerName).pokemons.Add(tempPokemon);
+                trainerExists = true;
             }
             if (trainerExists == false)
             {
@@ -65,14 +62,10 @@ class PokemonTrainer
             foreach (var trainer in trainerList)
             {
                 bool foundPokemon = false;
-                foreach (var pokemon in trainer.pokemons)
+                if (trainer.pokemons.Any(x=>x.element == input))
                 {
-                    if (pokemon.element == input)
-                    {
-                        foundPokemon = true;
-                        trainer.badges++;
-                        break;
-                    }
+                    foundPokemon = true;
+                    trainer.badges++;
                 }
                 if (foundPokemon == false)
                 {
