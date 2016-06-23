@@ -84,15 +84,15 @@ public class RawData
             Engine tempEngine = new Engine(engineSpeed, enginePower);
             Cargo tempCargo = new Cargo(cargoWeight, cargoType);
             Tire temptire1 = new Tire(tire1Pressure, tire1Age);
-            Tire temptire2 = new Tire(tire1Pressure, tire1Age);
-            Tire temptire3 = new Tire(tire1Pressure, tire1Age);
-            Tire temptire4 = new Tire(tire1Pressure, tire1Age);
+            Tire temptire2 = new Tire(tire2Pressure, tire2Age);
+            Tire temptire3 = new Tire(tire3Pressure, tire3Age);
+            Tire temptire4 = new Tire(tire4Pressure, tire4Age);
             Car tempCar = new Car(model, tempEngine, tempCargo, temptire1, temptire2, temptire3, temptire4);
             carList.Add(tempCar);
         }
         string searchedType = Console.ReadLine();
-        var result = carList.Where(x => x.cargo.type == "fragile" && x.tire1.pressure <1 
-                                 && x.tire2.pressure < 1 && x.tire3.pressure < 1 && x.tire4.pressure < 1);
+        var result = carList.Where(x => x.cargo.type == "fragile" && (x.tire1.pressure <1 
+                                 || x.tire2.pressure < 1 || x.tire3.pressure < 1 || x.tire4.pressure < 1));
         if (searchedType == "flamable")
         {
             result = carList.Where(x => x.cargo.type == "flamable" && x.engine.power > 250);
