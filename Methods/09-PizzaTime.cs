@@ -34,8 +34,8 @@ public class PizzaTime
     public static void Main(string[] args)
     {
         MethodInfo[] methods = typeof(Pizza).GetMethods();
-        bool containsMethod = methods.Any(m => m.ReturnType.Name.Equals("SortedDictionary"));
-        if (containsMethod)
+        bool containsMethod = methods.Any(m => m.ReturnType.Name.Equals("SortedDictionary`2"));
+        if (!containsMethod)
         {
             throw new Exception();
         }
