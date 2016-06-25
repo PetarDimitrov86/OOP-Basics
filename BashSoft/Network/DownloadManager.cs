@@ -1,43 +1,61 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-public static class DownloadManager
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Executor.Network
 {
-    public static void Download(string fileUrl)
+    public class DownloadManager
     {
-        WebClient webClient = new WebClient();
-        try
+        private WebClient webClient;
+
+        public DownloadManager()
         {
-            OutputWriter.WriteMessageOnNewLine("Started downloading: ");
-            string nameOfFile = ExtractNameOfFile(fileUrl);
-            string pathToDownload = SessionData.currentPath + "/" + nameOfFile;
-
-            webClient.DownloadFile(fileUrl, pathToDownload);
-
-            OutputWriter.WriteMessageOnNewLine("Download complete");
+            webClient = new WebClient();
         }
-        catch (WebException ex)
-        {         
-            OutputWriter.DisplayException(ex.Message);
-        }
-    }
 
-    private static string ExtractNameOfFile(string fileURL)
-    {
-        int indexOfLastBackslash = fileURL.LastIndexOf("/");
-        if (indexOfLastBackslash != -1)
+        public void Download(string fileURL)
         {
-            return fileURL.Substring(indexOfLastBackslash + 1);
-        }
-        else
-        {
-            throw new WebException(ExceptionMessages.InvalidPath);
-        }
-    }
+            WebClient webClient = new WebClient();
 
-    public static void DownloadAsync(string fileURL)
-    {
-        Task.Run(() => Download(fileURL));
+            try
+            {
+                OutputWriter.WriteMessageOnNewLine("Started downloading: ");
+
+                string nameOfFile = ExtractNameOfFile(fileURL);
+                string pathToDownload = SessionData.currentPath + "/" + nameOfFile;
+
+                webClient.DownloadFile(fileURL, pathToDownload);
+
+                OutputWriter.WriteMessageOnNewLine("Download complete");
+            }
+            catch (WebException ex)
+            {
+                OutputWriter.DisplayException(ex.Message);
+            }
+        }
+
+        public void DownloadAsync(string fileURL)
+        {
+            Task currentTask = Task.Run(() => Download(fileURL));
+            SessionData.taskPool.Add(currentTask);
+        }
+
+        private string ExtractNameOfFile(string fileURL)
+        {
+            int indexOfLastBackSlash = fileURL.LastIndexOf("/");
+
+            if (indexOfLastBackSlash != -1)
+            {
+                return fileURL.Substring(indexOfLastBackSlash + 1);
+            }
+            else
+            {
+                throw new WebException(ExceptionMessages.InvalidPath);
+            }
+        }
     }
 }

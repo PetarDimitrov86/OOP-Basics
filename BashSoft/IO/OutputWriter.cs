@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace Executor
+{
+    using System;
+    using System.Collections.Generic;
 
     public static class OutputWriter
     {
@@ -8,14 +9,17 @@ using System.Linq;
         {
             Console.Write(message);
         }
+
         public static void WriteMessageOnNewLine(string message)
         {
             Console.WriteLine(message);
         }
+
         public static void WriteEmptyLine()
         {
             Console.WriteLine();
         }
+
         public static void DisplayException(string message)
         {
             ConsoleColor currentColor = Console.ForegroundColor;
@@ -23,8 +27,10 @@ using System.Linq;
             Console.WriteLine(message);
             Console.ForegroundColor = currentColor;
         }
-        public static void PrintStudent(KeyValuePair<string, List<int>> student)
+
+        public static void PrintStudent(KeyValuePair<string, double> student)
         {
-            OutputWriter.WriteMessageOnNewLine(string.Format($"{student.Key} - {string.Join(", ", student.Value)}"));
+            OutputWriter.WriteMessageOnNewLine($"{student.Key} - {student.Value}");
         }
     }
+}

@@ -1,20 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-public static class InputReader
-{
-    private const string endCommand = "quit";
+using System.Threading.Tasks;
 
-    public static void StartReadingCommands()
+namespace Executor
+{
+    public class InputReader
     {
-        OutputWriter.WriteMessage($"{SessionData.currentPath}> ");
-        string input = Console.ReadLine();
-        while (input != endCommand)
+        private const string endCommand = "quit";
+        private CommandInterpreter interpreter;
+
+        public InputReader(CommandInterpreter interpreter)
         {
-            CommandInterpreter.IntepredCommand(input);
+            this.interpreter = interpreter;
+        }
+
+        public void StartReadingCommands()
+        {
             OutputWriter.WriteMessage($"{SessionData.currentPath}> ");
-            input = Console.ReadLine();
+            string input = Console.ReadLine();
             input = input.Trim();
+
+            while (input != endCommand)
+            {
+                this.interpreter.InterpredCommand(input);
+                OutputWriter.WriteMessage($"{SessionData.currentPath}> ");
+                input = Console.ReadLine();
+                input = input.Trim();
+            }
+
+            if (SessionData.taskPool.Count != 0)
+            {
+                Task.WaitAll(SessionData.taskPool.ToArray());
+            }
         }
     }
 }
