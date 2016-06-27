@@ -16,7 +16,7 @@ public class Car
     public decimal fuelCostPerKm;
     public decimal distanceTravelled = 0;
 
-    public static bool CanMove(decimal fuelAmount, decimal fuelCost, decimal KMtoTravel)
+    public static bool CanMove(decimal fuelAmount, decimal fuelCost, decimal KMtoTravel) // there is no need to add other information besides KMtoTravel, since the rest of the params are already withing the class scope
     {
         if (KMtoTravel <= fuelAmount / fuelCost)
         {
