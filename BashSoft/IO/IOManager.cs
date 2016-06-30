@@ -61,7 +61,7 @@ namespace Executor
             }
             catch (ArgumentException)
             {
-                OutputWriter.DisplayException(ExceptionMessages.ForbiddenSymbolsContainedInName);
+                throw new ArgumentException(ExceptionMessages.ForbiddenSymbolsContainedInName);
             }
         }
 
@@ -78,7 +78,7 @@ namespace Executor
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    OutputWriter.DisplayException(ExceptionMessages.InvalidDestination);
+                    throw new ArgumentOutOfRangeException("indexOfLastSlash", ExceptionMessages.InvalidDestination);
                 }
 
             }
@@ -94,10 +94,10 @@ namespace Executor
         {
             if (!Directory.Exists(absolutePath))
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-                return;
+                throw new DirectoryNotFoundException(ExceptionMessages.InvalidPath);
+                //OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+                //return;
             }
-
             SessionData.currentPath = absolutePath;
         }
     }

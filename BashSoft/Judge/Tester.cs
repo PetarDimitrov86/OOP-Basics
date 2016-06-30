@@ -6,13 +6,11 @@ namespace Executor
     public class Tester
     {
         public void CompareContent(string userOutputPath, string expectedOutputPath)
-        {
-            OutputWriter.WriteMessageOnNewLine("Reading files...");
-
+        {           
             try
             {
+                OutputWriter.WriteMessageOnNewLine("Reading files...");
                 string mismatchPath = GetMismatchPath(expectedOutputPath);
-
                 string[] actualOutputLines = File.ReadAllLines(userOutputPath);
                 string[] expectedOutputLines = File.ReadAllLines(expectedOutputPath);
 
@@ -20,17 +18,17 @@ namespace Executor
                 string[] mismatches = GetLinesWithPossibleMismatches(
                     actualOutputLines, expectedOutputLines, out hasMismatch);
 
-                PrintOutput(mismatches, hasMismatch, mismatchPath);
+                this.PrintOutput(mismatches, hasMismatch, mismatchPath);
                 OutputWriter.WriteMessageOnNewLine("Files read!");
             }
-            catch (FileNotFoundException)
+            catch (IOException)
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+                throw new IOException(ExceptionMessages.InvalidPath);
             }
-            catch (DirectoryNotFoundException)
-            {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-            }
+            //catch (DirectoryNotFoundException)
+            //{
+            //    OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+            //}
 
         }
 
@@ -70,7 +68,6 @@ namespace Executor
 
                 mismatches[index] = output;
             }
-
             return mismatches;
         }
 
@@ -83,14 +80,14 @@ namespace Executor
                     OutputWriter.WriteMessageOnNewLine(line);
                 }
 
-                try
-                {
+                //try
+                //{
                     File.WriteAllLines(mismatchesPath, mismatches);
-                }
-                catch (DirectoryNotFoundException)
-                {
-                    OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-                }
+                //}
+                //catch (DirectoryNotFoundException)
+                //{
+                //    OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+                //}
 
                 return;
             }

@@ -25,7 +25,7 @@ namespace Executor
             }
             else
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidStudentsFilter);
+                throw new InvalidOperationException(ExceptionMessages.InvalidStudentsFilter);
             }
         }
 
