@@ -3,8 +3,8 @@ using System.Text;
 
 public class Person
 {
-    public string name;
-    public int age;
+    private string name;
+    private int age;
 
     public Person(string name, int age)
     {
