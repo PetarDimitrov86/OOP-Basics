@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Executor.Exceptions;
 
 namespace Executor
 {
@@ -61,7 +62,7 @@ namespace Executor
             }
             catch (ArgumentException)
             {
-                throw new ArgumentException(ExceptionMessages.ForbiddenSymbolsContainedInName);
+                throw new InvalidFileNameException();
             }
         }
 
@@ -78,7 +79,7 @@ namespace Executor
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    throw new ArgumentOutOfRangeException("indexOfLastSlash", ExceptionMessages.InvalidDestination);
+                    throw new InvalidPathException();
                 }
 
             }
@@ -94,9 +95,7 @@ namespace Executor
         {
             if (!Directory.Exists(absolutePath))
             {
-                throw new DirectoryNotFoundException(ExceptionMessages.InvalidPath);
-                //OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-                //return;
+                throw new InvalidPathException();
             }
             SessionData.currentPath = absolutePath;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Executor.Exceptions;
 
 namespace Executor.Models
 {
@@ -21,7 +22,7 @@ namespace Executor.Models
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException(nameof(this.name), ExceptionMessages.NullOrEmptyValue);
+                    throw new InvalidStringException();
                 }
                 this.name = value;
             }
@@ -42,7 +43,7 @@ namespace Executor.Models
         {
             if (this.studentsByName.ContainsKey(student.UserName))
             {
-                throw new ArgumentException(string.Format(ExceptionMessages.StudentAlreadyEnrolledInGivenCourse, student.UserName, this.name));
+                throw new DuplicateEntryInStructureException(student.UserName, this.Name);
             }
             this.studentsByName.Add(student.UserName, student);
         }

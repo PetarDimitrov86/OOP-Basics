@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Executor.Exceptions;
 
 namespace Executor.Models
 {
@@ -19,7 +20,7 @@ namespace Executor.Models
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException(nameof(this.userName), ExceptionMessages.NullOrEmptyValue);
+                    throw new InvalidStringException();
                 }
                 this.userName = value;
             }   
@@ -46,7 +47,7 @@ namespace Executor.Models
         {
             if (this.enrolledCourses.ContainsKey(course.Name))
             {
-                throw new ArgumentException(string.Format(ExceptionMessages.StudentAlreadyEnrolledInGivenCourse, this.userName, course.Name));
+                throw new DuplicateEntryInStructureException(this.UserName, course.Name);
             }
             this.enrolledCourses.Add(course.Name, course);
         }
@@ -55,11 +56,11 @@ namespace Executor.Models
         {
             if (!this.enrolledCourses.ContainsKey(courseName))
             {
-                throw new ArgumentException(ExceptionMessages.NotEnrolledInCourse);
+                throw new  Exceptions.KeyNotFoundException();
             }
             if (scores.Length > Course.NumberOfTasksOnExam)
             {
-                throw new ArgumentOutOfRangeException("scores", ExceptionMessages.InvalidNumberOfScores);
+                throw new InvalidNumberOfScoresException();
             }
 
             this.marksByCourseName.Add(courseName, CalculateMark(scores));

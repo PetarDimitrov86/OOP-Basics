@@ -13,12 +13,12 @@
         public const string InvalidStudentsFilter = "The given filter is not one of the following: excellent/average/poor";
         public const string DataAlreadyInitializedException = "Data is already initialised!";
         public const string ComparisonOfFilesWithDifferentSizes = "Files not of equal size, certain mismatch.";
-        public const string ForbiddenSymbolsContainedInName = "The given name contains symbols that are not allowed to be used in names of files or folders.";
-        public const string InvalidDestination = "You are unable to go higher in the hierarchy of the current partition.";
-        public const string StudentAlreadyEnrolledInGivenCourse = "The {0} already exists in {1}.";
-        public const string NotEnrolledInCourse = "Student must be enrolled in a course before you set his mark.";
+        //public const string ForbiddenSymbolsContainedInName = "The given name contains symbols that are not allowed to be used in names of files or folders.";
+        //public const string InvalidDestination = "You are unable to go higher in the hierarchy of the current partition.";
+        //public const string StudentAlreadyEnrolledInGivenCourse = "The {0} already exists in {1}.";
+        //public const string NotEnrolledInCourse = "Student must be enrolled in a course before you set his mark.";
         public const string InvalidNumberOfScores = "The number of scores for the given course is greater than the possible.";
         public const string InvalidScore = "The number for the score you've entered is not in the range of 0 - 100";
-        public const string NullOrEmptyValue = "The value of the variable CANNOT be null or empty!";
+        //public const string NullOrEmptyValue = "The value of the variable CANNOT be null or empty!";
     }
 }

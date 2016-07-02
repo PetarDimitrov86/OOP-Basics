@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Executor.Exceptions;
 
 namespace Executor
 {
@@ -23,13 +24,12 @@ namespace Executor
             }
             catch (IOException)
             {
-                throw new IOException(ExceptionMessages.InvalidPath);
+                throw new InvalidPathException();
             }
             //catch (DirectoryNotFoundException)
             //{
             //    OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
             //}
-
         }
 
         private string[] GetLinesWithPossibleMismatches(

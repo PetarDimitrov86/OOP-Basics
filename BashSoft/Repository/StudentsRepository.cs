@@ -41,7 +41,6 @@ namespace Executor
             if (!this.isDataInitialized)
             {
                 throw new ArgumentException(ExceptionMessages.DataNotInitializedExceptionMessage);
-                return;
             }
             //this.studentsByCourse = new Dictionary<string, Dictionary<string, List<int>>>();
             this.students = null;

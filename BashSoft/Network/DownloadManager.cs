@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Executor.Exceptions;
 
 namespace Executor.Network
 {
@@ -54,7 +55,7 @@ namespace Executor.Network
             }
             else
             {
-                throw new WebException(ExceptionMessages.InvalidPath);
+                throw new InvalidPathException();
             }
         }
     }
