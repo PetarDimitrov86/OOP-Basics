@@ -10,9 +10,9 @@ public class Box
 
     public Box(decimal length, decimal width, decimal height)
     {
-        Length = length;
-        Width = width;
-        Height = height;
+        this.Length = length;
+        this.Width = width;
+        this.Height = height;
     }
 
     public decimal Length
@@ -20,9 +20,9 @@ public class Box
         get { return this.length; }
         set
         {
-            if (value <= 0)
+            if (value < 0)
             {
-                Console.WriteLine("Length cannot be zero or negative.");
+                throw new ArgumentException("Length cannot be zero or negative.");
             }
             this.length = value;
         }
@@ -32,21 +32,22 @@ public class Box
         get { return this.width; }
         set
         {
-            if (value <= 0)
+            if (value < 0)
             {
-                Console.WriteLine("Width cannot be zero or negative.");
+                throw new ArgumentException("Width cannot be zero or negative.");
             }
             this.width = value;
         }
     }
+
     public decimal Height
     {
         get { return this.height; }
         set
         {
-            if (value <= 0)
+            if (value < 0)
             {
-                Console.WriteLine("Height cannot be zero or negative.");
+                throw new ArgumentException("Height cannot be zero or negative.");
             }
             this.height = value;
         }
@@ -79,12 +80,16 @@ class ClassBoxDataValidation
         decimal length = decimal.Parse(Console.ReadLine());
         decimal width = decimal.Parse(Console.ReadLine());
         decimal height = decimal.Parse(Console.ReadLine());
-        Box ourBox = new Box(length, width, height);
-        if (length > 0 && width > 0 && height > 0)
+        try
         {
+            Box ourBox = new Box(length, width, height);
             Console.WriteLine($"Surface Area - {ourBox.SurfaceArea():f2}");
             Console.WriteLine($"Lateral Surface Area - {ourBox.LateralSurfaceArea():f2}");
             Console.WriteLine($"Volume - {ourBox.Volume():f2}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
         }
     }
 }
