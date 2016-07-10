@@ -17,7 +17,7 @@ namespace _03_WildFarm
             else
             {
                 this.FoodEaten -= food.Quantity;
-                Console.WriteLine("Mice are not eating that type of food!");
+                Console.WriteLine("Mouses are not eating that type of food!");
             }
         }
 
